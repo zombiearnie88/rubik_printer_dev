@@ -23,12 +23,12 @@ export class AppController {
   }
 
   /* simply uploading */
-  @Post('upload')
-  @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(@UploadedFile() file: Express.Multer.File) {
-    info(file);
-    return { ok: true };
-  }
+  // @Post('upload')
+  // @UseInterceptors(FileInterceptor('file'))
+  // async uploadFile(@UploadedFile() file: Express.Multer.File) {
+  //   info(file);
+  //   return { ok: true };
+  // }
 
   /* listing connected printers */
   @Get('printers')

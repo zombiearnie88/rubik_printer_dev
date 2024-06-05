@@ -8,6 +8,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "dev": "vite",
+    "build": "nest build && cp -r ./dist/src/ ../dist/printer/dist/ && cp package.json ../dist/printer/ && cp yarn.lock ../dist/printer/",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",

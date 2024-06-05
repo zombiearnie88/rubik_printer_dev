@@ -6,7 +6,7 @@ import { Printer } from 'unix-print/build/types';
 export class AppService {
   async getHello(): Promise<Printer[]> {
     const printers = await getPrinters();
-    console.info(printers);
+    // console.info(printers);
     return printers;
   }
 
