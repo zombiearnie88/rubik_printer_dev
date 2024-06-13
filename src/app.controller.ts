@@ -18,17 +18,11 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  async getHello() {
-    return this.appService.getHello();
+  // @Render('index.hbs')
+  async root() {
+    const printers = await this.appService.getPrinters();
+    return { printers };
   }
-
-  /* simply uploading */
-  // @Post('upload')
-  // @UseInterceptors(FileInterceptor('file'))
-  // async uploadFile(@UploadedFile() file: Express.Multer.File) {
-  //   info(file);
-  //   return { ok: true };
-  // }
 
   /* listing connected printers */
   @Get('printers')
@@ -53,4 +47,12 @@ export class AppController {
     info({ body, file });
     return await this.appService.printFile(file.path, body.printer);
   }
+
+  /* simply uploading */
+  // @Post('upload')
+  // @UseInterceptors(FileInterceptor('file'))
+  // async uploadFile(@UploadedFile() file: Express.Multer.File) {
+  //   info(file);
+  //   return { ok: true };
+  // }
 }
