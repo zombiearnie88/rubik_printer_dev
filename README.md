@@ -1,34 +1,5 @@
-## Mkcert
+# Rubik Printer
 
-# config nginx
+Service nhỏ để in từ xa trong mạng LAN qua HTTPS.
 
-server {
-server_name printer.node;
-
-location / {
-proxy_pass http://localhost:1340;
-proxy_http_version 1.1;
-proxy_set_header Upgrade $http_upgrade;
-proxy_set_header Connection 'upgrade';
-proxy_set_header Host $host;
-proxy_cache_bypass $http_upgrade;
-}
-
-    listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/api.rubiklab.vip/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/api.rubiklab.vip/privkey.pem; # managed by Certbot
-    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
-
-}
-
-server {
-if ($host = printer.node) {
-        return 301 https://$host$request_uri;
-} # managed by Certbot
-
-server_name printer.node;
-listen 80;
-return 404; # managed by Certbot
-
-}
+Xem hướng dẫn deploy bằng `mkcert` và PM2 trong [DEPLOY.md](./DEPLOY.md).
