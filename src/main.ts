@@ -30,10 +30,20 @@ export function createApp(): express.Express {
   const app = express();
 
   app.use(helmet({ frameguard: false }));
-  app.use((_request, response, next) => {
+  app.use((request, response, next) => {
     response.header('Access-Control-Allow-Origin', '*');
     response.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
-    response.header('Access-Control-Allow-Headers', 'Content-Type');
+
+    const requestedHeaders = request.header('Access-Control-Request-Headers');
+    response.header(
+      'Access-Control-Allow-Headers',
+      requestedHeaders || 'Content-Type, Authorization',
+    );
+
+    if (request.header('Access-Control-Request-Private-Network') === 'true') {
+      response.header('Access-Control-Allow-Private-Network', 'true');
+    }
+
     next();
   });
   app.options(/.*/, (_request, response) => response.sendStatus(204));
